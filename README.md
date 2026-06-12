@@ -50,7 +50,7 @@ Quick summary of what I learned at each step.
 - Feature engineering isn't done until cleanup is done: log-transform skewed columns, encode categoricals, drop raw date columns, run a correlation check.
 - Validate new features against the target (`groupby('feature').agg({'churn':'mean'})`) before keeping them.
 
-**Step 3 – Modeling**
+**Step 3 – Modeling (Random Forest)**
 - Always establish a baseline model before tuning.
 - The deliverable is the predictions, not the model. Export results to a usable file.
 - Close the loop: tie model results back to the original business hypothesis.
