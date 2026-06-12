@@ -2,7 +2,7 @@
 
 > **Disclaimer:** This project was completed as part of the BCG Forage Virtual Experience Program. It does not represent employment, work experience, or an internship with BCG.
 
-## Repository Structure
+## Repository Structure and Description
 
 ```
 repo/
