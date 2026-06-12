@@ -1,0 +1,34 @@
+To whom it may concern,
+
+Thank you for choosing BCG for support. We look forward to helping in any way we can.
+
+To start, we have discussed possible reasons why a customer would choose to stay or switch energy providers. The reasons fit into four main categories: pricing, the energy source, issues and complaints, and incentives from other companies. To start, we will examine the first three categories to determine if the problem is operational.
+
+We would like the following data points to effectively analyze causes of churn:
+
+1. Price
+   1. Current rate
+   2. Rate type (fixed vs dynamic)
+   3. Price spikes (frequency and severity)
+   4. Peak vs off-peak rates
+2. Energy Source
+   1. Current energy mix (% renewable vs fossil fuels)
+   2. Customer awareness of their provider's energy source
+   3. Importance of green energy for the customer (survey)
+   4. If they have sought out a green energy plan
+3. Issues & Complaints
+   1. Number and frequency of outages experienced
+   2. Outage resolution time
+   3. Number of customer service contacts
+   4. Satisfaction with customer service interactions (survey)
+   5. Whether they have filed a complaint
+      1. Whether the issue was resolved
+4. Miscellaneous
+   1. Time with current provider
+   2. Demographics (location, housing type, usage level)
+
+Once we have the data, we will proceed with our plan, starting with identifying the core drivers of customer churn. Our goal is to reduce churn, improve customer retention, and better understand the underlying issues. Upon receiving the data, the next stage of the process is to begin preliminary exploratory data analysis. This will include examining distributions, spotting missing values, and cleaning inconsistencies. From there, we'll enrich the dataset with any additional context that could help strengthen our findings. Next, we will build and validate predictive models to find patterns that address the churning problem. Finally, we'll translate everything into clear, actionable insights that connect directly to your business goals.
+
+Thank you,
+Jake Willingham
+BCG X
