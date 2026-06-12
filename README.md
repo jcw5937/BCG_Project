@@ -7,11 +7,12 @@
 ```
 repo/
 ├── Data/                                          # Raw datasets provided for the project
-├── Deliverables/                                  # Final outputs and submissions
-│   ├── executive_summary.pptx                     # Final presentation of findings & recommendations
+├── Outputs/                                       # Initial email and final deliverables
+│   ├── 00_initial_email_my_solution.md            # My initial client email (business framing, data needs, plan)
+│   ├── 00_initial_email_forage_solution.md        # Forage's reference email
+│   ├── 04_executive_summary_my_solution.pdf       # My final executive summary
+│   ├── 04_executive_summary_forage_solution.pdf   # Forage's reference executive summary
 │   └── out_of_sample_data_with_predictions.csv    # Final model predictions
-├── 00_initial_email_my_solution.md                # My initial client email (business framing, data needs, plan)
-├── 00_initial_email_forage_solution.md            # Forage's reference email
 ├── 01_EDA_my_solution.ipynb                       # My exploratory data analysis
 ├── 01_EDA_forage_solution.ipynb                   # Forage's reference EDA
 ├── 02_feature_engineering_my_solution.ipynb       # My feature engineering work
@@ -23,10 +24,15 @@ repo/
 
 ## How to Navigate This Repo
 
-Each task is numbered in the order it was completed (00–03). For each task, my solution is paired with Forage's reference solution so the two can be compared side by side. The final executive summary in `Deliverables/` ties everything together for a steering committee audience.
+This project is built around a side-by-side comparison: for every step, I completed my own solution first, then compared it against Forage's reference solution. The differences between the two are the foundation of the **Key Takeaways** and **Extended Notes** sections below.
+
+Each task is numbered in the order it was completed (00–04):
+- `*_my_solution` – my independent attempt
+- `*_forage_solution` – Forage's reference solution for that step
+
+The `Outputs/` folder contains the initial client email (step 0) and the final executive summary and predictions (step 4).
 
 ---
-
 ## Key Takeaways
 
 Quick summary of what I learned at each step.
