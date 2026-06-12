@@ -17,7 +17,7 @@ repo/
 ├── 01_EDA_forage_solution.ipynb                   # Forage's reference EDA
 ├── 02_feature_engineering_my_solution.ipynb       # My feature engineering work
 ├── 02_feature_engineering_forage_solution.ipynb   # Forage's reference solution
-├── 03_modeling_my_solution.ipynb                  # My modeling notebook
+├── 03_modeling_my_solution.ipynb                  # My modeling notebook - Random Forest
 ├── 03_modeling_forage_solution.ipynb              # Forage's reference modeling solution
 └── README.md
 ```
