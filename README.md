@@ -2,7 +2,103 @@
 
 > **Disclaimer:** This project was completed as part of the BCG Forage Virtual Experience Program. It does not represent employment, work experience, or an internship with BCG.
 
-## Repository Structure and Description
+## Table of Contents
+1. [Overview](#overview)
+2. [Project Steps](#project-steps)
+   - [Step 0 – Initial Client Email](#step0)
+   - [Step 1 – Exploratory Data Analysis](#step1)
+   - [Step 2 – Feature Engineering](#step2)
+   - [Step 3 – Modeling](#step3)
+   - [Step 4 – Executive Summary](#step4)
+3. [Repository Structure](#repository-structure)
+4. [How to Navigate This Repo](#how-to-navigate-this-repo)
+5. [Key Takeaways](#key-takeaways)
+6. [Extended Notes](#extended-notes)
+
+## Overview
+
+This project was completed as part of the BCG Forage Virtual Experience Program. The task was to analyze customer churn for PowerCo, an energy provider in the SME (small and medium enterprise) division. The central hypothesis was that price sensitivity was the primary driver of churn. The project follows a data science workflow from initial client communication through exploratory analysis, feature engineering, and predictive modeling, ending with an executive summary of findings delivered to a steering committee.
+
+**Key finding:** Price sensitivity is a contributing but not primary driver of churn. Net margin and 12-month consumption are stronger predictors. A random forest model was able to identify ~41% of at-risk customers before they churned.
+
+---
+
+## Project Steps
+
+This project follows a five-step data science workflow. Each step has a paired comparison between my solution and Forage's reference solution.
+
+---
+
+<a name="step0"></a>
+
+**Step 0 – Initial Client Email**
+
+The project began with drafting an email to the PowerCo stakeholder. The goal was to identify possible churn drivers, request the right data, and outline a plan for the analysis — all before seeing any data.
+
+- My approach categorized churn drivers into four groups (pricing, energy source, issues/complaints, and external incentives) and requested specific data points within each.
+- Forage's reference email was more concise and hypothesis-driven, focused directly on price sensitivity as the central question.
+
+---
+
+<a name="step1"></a>
+
+**Step 1 – Exploratory Data Analysis (EDA)**
+
+With the dataset in hand, the first coding step was a full exploratory analysis to understand the data before modeling.
+
+- Examined distributions, churn rates by category, skewness, missing values, and outliers across all variables.
+- Key findings:
+  1. Strong right skew in consumption and forecast columns
+  2. Significant outliers in margin columns
+  3. No single variable that cleanly separated churners from non-churners
+
+---
+
+<a name="step2"></a>
+
+**Step 2 – Feature Engineering**
+
+Raw features were transformed and new ones created to give the model better signal. Features were built in two dimensions: across time and across pricing categories within the same period.
+
+- **Dec vs. Jan price differences (off-peak):** Replicated the colleague's starter code to compute the difference in off-peak prices between December and the preceding January, for both energy and power components (`off_peak_diff_dec_january_energy`, `off_peak_diff_dec_january_power`).
+- **Dec vs. Jan price differences (peak and mid-peak):** Extended the above to also cover peak and mid-peak pricing periods, building `peak_diff_dec_january_energy`, `peak_diff_dec_january_power`, `mid_peak_diff_dec_january_energy`, and `mid_peak_diff_dec_january_power`.
+- **Contract duration:** Computed `contract_duration` as the number of days between `date_activ` and `date_end`.
+- **Days until renewal:** Computed `days_until_renewal` using a fixed reference date of 2016-01-01.
+- **Consumption vs. forecast difference:** Created `cons_12m_diff` to capture whether a customer consumed more or less energy than forecasted over the past 12 months. A large positive gap may indicate rapid growth or inaccurate forecasting.
+- **Power cost:** Created `power_cost` as the difference between `margin_gross_pow_ele` and `margin_net_pow_ele`, representing the implied cost of power.
+
+---
+
+<a name="step3"></a>
+
+**Step 3 – Modeling**
+
+Trained a Random Forest classifier to predict churn probability for each customer. The Random Forest was chosen for its ability to handle non-linear patterns, its resistance to needing feature scaling, and the power of ensemble averaging across many weak learners.
+
+- **Train/test split:** 75/25 split with `random_state=42`, stratified to preserve class proportions.
+- **Baseline model:** Trained an initial Random Forest via grid search. Evaluation immediately revealed a problem: accuracy was high (~90%) but churn recall was extremely low (3%), meaning the model was almost never flagging actual churners.
+- **Addressing class imbalance:** The dataset had a severe imbalance (~90% non-churn, ~10% churn). Tried three strategies to improve churn recall:
+  1. `class_weight='balanced'` — penalizes the model more for missing churners. Recall improved slightly but remained low.
+  2. SMOTE (synthetic oversampling of the minority class) — generated synthetic churn examples to balance the training set. Combined with a grid search and threshold tuning, but produced comparable recall with lower precision and accuracy than the simpler model.
+  3. Threshold adjustment — instead of the default 0.5 decision threshold, lowered it to 0.15, meaning the model flags a customer as at-risk whenever it assigns at least 15% churn probability. This increased churn recall from 0.03 to 0.41.
+- **Feature importances:** No single feature dominated predictions — importances were spread across many variables, suggesting weak overall signal rather than a feature engineering problem. Notably, the engineered price difference features did show up as contributors.
+- **Final model:** Original grid search Random Forest at threshold 0.15, chosen over the SMOTE pipeline based on better precision and accuracy at comparable recall.
+- **Predictions** exported to `out_of_sample_data_with_predictions.csv`.
+
+---
+
+<a name="step4"></a>
+
+**Step 4 – Executive Summary**
+
+Findings were translated into a one-page presentation for a steering committee audience.
+
+- Key finding: price sensitivity is a contributing but not primary driver of churn. Net margin and 12-month consumption are stronger predictors. The model identified ~41% of at-risk customers before they churned.
+- Forage's reference slide led with business implications rather than raw findings, and grounded percentages in real customer counts (~15k total, ~1,500 churning annually).
+
+---
+
+## Repository Structure
 
 ```
 repo/
@@ -62,6 +158,8 @@ Quick summary of what I learned at each step.
 - For executive audiences, less is more: one headline conclusion per point.
 
 ---
+
+<a name="extended-notes"></a>
 
 <details>
 <summary><strong> Extended Notes (click to expand)</strong> — full self-review and comparisons against the Forage reference solutions</summary>
